@@ -687,6 +687,7 @@ func (c *Converter) internalRun(ctx context.Context, args []string, secretKeyVal
 		}
 		envVar := parts[0]
 		secretID := strings.TrimPrefix(parts[1], "+secrets/")
+		fmt.Printf("TODO, print secret %v\n", secretID)
 		secretPath := path.Join("/run/secrets", secretID)
 		secretOpts := []llb.SecretOption{
 			llb.SecretID(secretID),

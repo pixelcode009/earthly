@@ -31,6 +31,7 @@ import (
 	"github.com/earthly/earthly/domain"
 	"github.com/earthly/earthly/earthfile2llb"
 	"github.com/earthly/earthly/earthfile2llb/variables"
+	"github.com/earthly/earthly/llbutil"
 	"github.com/earthly/earthly/logging"
 
 	"github.com/fatih/color"
@@ -40,7 +41,6 @@ import (
 	"github.com/moby/buildkit/client/llb"
 	"github.com/moby/buildkit/session"
 	"github.com/moby/buildkit/session/auth/authprovider"
-	"github.com/moby/buildkit/session/secrets/secretsprovider"
 	"github.com/moby/buildkit/session/sshforward/sshprovider"
 	"github.com/moby/buildkit/util/entitlements"
 	"github.com/pkg/errors"
@@ -906,7 +906,7 @@ func (app *earthApp) actionBuild(c *cli.Context) error {
 	secretsMap[debuggercommon.DebuggerSettingsSecretsKey] = debuggerSettingsData
 
 	attachables := []session.Attachable{
-		secretsprovider.FromMap(secretsMap),
+		llbutil.FromMap(secretsMap),
 		authprovider.NewDockerAuthProvider(os.Stderr),
 	}
 
